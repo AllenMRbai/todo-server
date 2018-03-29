@@ -15,12 +15,17 @@ module.exports = {
                 try {
                     await next();
                 } catch (e) {
+                    if(e instanceof Error){
+                        //如果是继承自Error，就打印到控制台
+                        //以后可以在这添加日志
+                        console.error(e)
+                    }
                     // 返回错误:
                     ctx.response.status = 400;
                     ctx.response.type = 'application/json';
                     ctx.response.body = {
                         code: e.code || 'internal:unknown_error',
-                        message: e.message || ''
+                        message: e.message || 'unknown internal error'
                     };
                 }
             } else {

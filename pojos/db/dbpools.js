@@ -10,7 +10,8 @@ var sequelize=new Sequelize(config.database,config.username,config.password,{
 		idle:30000
 	},
 	define: {
-	    underscored:true
+		underscored:true,
+		charset:'utf8mb4'
 	 }
 });
 
