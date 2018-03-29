@@ -19,6 +19,10 @@ console.log('当前环境',process.env.NODE_ENV)
 
 const app = new Koa();
 
+process.on('uncaughtException', function (err) {
+	console.log('Caught exception: ' + err);
+});
+
 //在app的ctx上绑定render方法，处理模板的渲染
 templating(app);
 
