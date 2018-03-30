@@ -15,6 +15,7 @@ const {restify} = require('./middlewares/rest.js');
 const templating = require('./utils/templating.js');
 
 const isProduction=process.env.NODE_ENV==='production';//获得当前设备是否是生产环境
+let port=process.env.PORT || 3000;
 console.log('当前环境',process.env.NODE_ENV)
 
 const app = new Koa();
@@ -37,6 +38,6 @@ if(!isProduction){
 //添加路由
 app.use(routes);
 
-app.listen(3000, function () {
+app.listen(port, function () {
     console.log("app started at port 3000...")
 });
