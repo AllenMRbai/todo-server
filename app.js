@@ -39,5 +39,5 @@ if(!isProduction){
 app.use(routes);
 
 app.listen(port, function () {
-    console.log("app started at port 3000...")
+    console.log("app started at port "+port+"...")
 });
