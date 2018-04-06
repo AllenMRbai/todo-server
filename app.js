@@ -17,11 +17,15 @@ const {logger} = require('./utils/log4js.js')
 
 
 const isProduction=process.env.NODE_ENV==='production';//获得当前设备是否是生产环境
+let port=process.env.PORT || 3000;
+let startTime=new Date().getTime();
+
 console.log('当前环境',process.env.NODE_ENV)
 global.logger.prepareLog(`*****服务器开启中，当前环境为 ${process.env.NODE_ENV}*****`);
 
 const app = new Koa();
 
+//监听未捕获的异常
 process.on('uncaughtException', function (err) {
 	logger.uncaughtLog(err);
 });
@@ -44,7 +48,10 @@ app.use(restify());
 //添加路由
 app.use(routes);
 
-app.listen(3000, function () {
-	console.log("app started at port 3000...")
-	global.logger.prepareLog(`*****服务器启动成功，端口号为 ${3000}*****`);
+app.listen(port, function () {
+	let endTime=new Date().getTime();
+	console.log("app started at port "+port+"...")
+	global.logger.prepareLog(`*****服务器启动成功，端口号为 ${port}*****\n
+							  *****启动花费${(endTime-startTime)/1000}秒*****`);
 });
+
