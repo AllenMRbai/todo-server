@@ -2,6 +2,7 @@
  * 来自廖雪峰官方网站的javascript教程
  * 其中加入了了一些自己的理解，做了些修改
  */
+try{
 
 //node模块
 const fs = require('fs');
@@ -10,19 +11,18 @@ const Koa = require('koa');
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
 //自己的模块
-const routes = require('./middlewares/controller.js');
+const Routes = require('./middlewares/controller.js');
 const {restify} = require('./middlewares/rest.js');
 const templating = require('./utils/templating.js');
 const {logger} = require('./utils/log4js.js')
 
-
+//启动服务器时的初始化
 const isProduction=process.env.NODE_ENV==='production';//获得当前设备是否是生产环境
 let port=process.env.PORT || 3000;
 let startTime=new Date().getTime();
-
 console.log('当前环境',process.env.NODE_ENV)
-global.logger.prepareLog(`*****服务器开启中，当前环境为 ${process.env.NODE_ENV}*****`);
-
+logger.prepareLog(`\n*****服务器开启中，当前环境为 ${process.env.NODE_ENV}*****`);
+const routes=Routes();//获得routes
 const app = new Koa();
 
 //监听未捕获的异常
@@ -51,7 +51,10 @@ app.use(routes);
 app.listen(port, function () {
 	let endTime=new Date().getTime();
 	console.log("app started at port "+port+"...")
-	global.logger.prepareLog(`*****服务器启动成功，端口号为 ${port}*****\n
-							  *****启动花费${(endTime-startTime)/1000}秒*****`);
+	logger.prepareLog(`\n*****服务器启动成功，端口号为 ${port}*****\n*****启动花费 ${(endTime-startTime)/1000} 秒*****`);
 });
 
+}catch(err){
+	logger.prepareLog(`\n*****服务器启动失败*****`);
+	logger.outerLog(err);
+}

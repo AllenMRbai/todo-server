@@ -3,27 +3,28 @@ const path=require('path');
 
 const router = require('koa-router')();
 const {rootPath}=require('../utils/common');
+const {logger}=require('../utils/log4js');
 
 function addMapping(mapping) {
     for (var url in mapping) {
         if (url.startsWith('GET ')) {
             var path = url.substring(4);
             router.get(path, mapping[url]);
-            global.logger.prepareLog(`register URL mapping: GET ${path}`);
+            logger.prepareLog(`register URL mapping: GET ${path}`);
         } else if (url.startsWith('POST ')) {
             var path = url.substring(5);
             router.post(path, mapping[url]);
-            global.logger.prepareLog(`register URL mapping: POST ${path}`);
+            logger.prepareLog(`register URL mapping: POST ${path}`);
         }else if (url.startsWith('PUT ')) {
             var path = url.substring(4);
             router.put(path, mapping[url]);
-            global.logger.prepareLog(`register URL mapping: PUT ${path}`);
+            logger.prepareLog(`register URL mapping: PUT ${path}`);
         }else if (url.startsWith('DELETE ')) {
             var path = url.substring(7);
             router.del(path, mapping[url]);
-            global.logger.prepareLog(`register URL mapping: DELETE ${path}`);
+            logger.prepareLog(`register URL mapping: DELETE ${path}`);
         } else {
-            global.logger.prepareLog(`invalid URL: ${url}`);
+            logger.prepareLog(`invalid URL: ${url}`);
         }
     }
 }
@@ -48,5 +49,5 @@ module.exports = (function () {
     let filesPath=path.resolve(rootPath,'controllers');
     addControllers(filesPath);
     return router.routes();
-}());
+});
 
