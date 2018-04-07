@@ -1,3 +1,6 @@
 node_modules/
 pojos/db/config.js
 log/
+err.log
+out.log
+forever.log

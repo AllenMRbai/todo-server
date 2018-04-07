@@ -48,7 +48,7 @@ app.use(restify());
 //添加路由
 app.use(routes);
 
-app.listen(port, function () {
+app.listen(port,'0.0.0.0',function () {
 	let endTime=new Date().getTime();
 	console.log("app started at port "+port+"...")
 	logger.prepareLog(`\n*****服务器启动成功，端口号为 ${port}*****\n*****启动花费 ${(endTime-startTime)/1000} 秒*****`);
