@@ -3,6 +3,7 @@ const {APIError}=require('../../middlewares/rest')
 const getProduct = async (ctx, next) => {
     let id = ctx.params.id;
     let pro;
+
     for(let p of mockDB.products){
         if(p.id==id){
             pro=p;

@@ -1,3 +1,5 @@
+const {APIError}=require('../middlewares/rest')
+
 var fn_index = async (ctx, next) => {
     ctx.response.body = `<h1>Index</h1>
         <form action="/signin" method="post">
